@@ -1,0 +1,18 @@
+main: me.asakura_kukii.siegemob.SiegeMob
+version: 0.0.1
+api-version: 1.20
+name: SiegeMob
+commands:
+  SiegeMob:
+    description: Main argument for SiegeMob
+    aliases: [sm]
+permissions:
+  siegemob.admin:
+    description: 'Gives access to all admin commands for SiegeMob'
+    children:
+      siegemob.item: true
+      siegemob.file: true
+      siegemob.io: true
+depend: [SiegeCore]
+author:
+   Asakura_kukii
