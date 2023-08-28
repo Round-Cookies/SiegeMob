@@ -2,7 +2,10 @@ package me.asakura_kukii.siegemob.argument.command;
 
 import me.asakura_kukii.siegecore.argument.PArgument;
 import me.asakura_kukii.siegecore.argument.PSender;
+import me.asakura_kukii.siegemob.mob.PAction;
+import me.asakura_kukii.siegemob.mob.PActiveMob;
 import me.asakura_kukii.siegemob.mob.PMob;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -30,7 +33,10 @@ public class CommandHandler {
         switch (s) {
             case "test":
                 Player p = ((Player) sender.sender);
-                PMob.test.spawn(p.getLocation());
+                Location l = p.getLocation();
+                PActiveMob pAM = new PActiveMob(PMob.test, l);
+                pAM.spawn();
+                pAM.action(PAction.test);
                 return true;
             case "info":
                 return onInfo(sender, argument);

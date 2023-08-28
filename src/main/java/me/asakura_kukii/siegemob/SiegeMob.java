@@ -6,6 +6,9 @@ import me.asakura_kukii.siegecore.io.PType;
 import me.asakura_kukii.siegecore.util.format.FormatHandler;
 import me.asakura_kukii.siegemob.argument.command.CommandHandler;
 import me.asakura_kukii.siegemob.argument.tab.TabHandler;
+import me.asakura_kukii.siegemob.mob.PAction;
+import me.asakura_kukii.siegemob.mob.PActiveMob;
+import me.asakura_kukii.siegemob.mob.PJoint;
 import me.asakura_kukii.siegemob.mob.PMob;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
@@ -34,6 +37,8 @@ public class SiegeMob extends JavaPlugin {
     }
 
     public static void registerType() {
+        PType.putPType(pluginInstance, "joint", PJoint.class);
+        PType.putPType(pluginInstance, "action", PAction.class);
         PType.putPType(pluginInstance, "mob", PMob.class);
     }
 
@@ -68,6 +73,9 @@ public class SiegeMob extends JavaPlugin {
         updaterRegister.put(pluginInstance, new BukkitRunnable() {
             @Override
             public void run() {
+                for (PActiveMob pAM : PActiveMob.livingMobMap.values()) {
+                    pAM.update();
+                }
             }
         }.runTaskTimer(pluginInstance , 0, 1));
     }

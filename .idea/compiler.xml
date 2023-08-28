@@ -7,8 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="SiegeMob" />
-        <module name="SiegeGenerate" />
-        <module name="SiegeCore" />
       </profile>
     </annotationProcessing>
   </component>
