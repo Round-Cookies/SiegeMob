@@ -6,6 +6,8 @@ import me.asakura_kukii.siegecore.io.PFileIdDeserializer;
 import me.asakura_kukii.siegecore.io.PFileIdSerializer;
 import me.asakura_kukii.siegemob.util.Matrix4FDeserializer;
 import me.asakura_kukii.siegemob.util.Matrix4FSerializer;
+import me.asakura_kukii.siegemob.util.PTransformDeserializer;
+import me.asakura_kukii.siegemob.util.PTransformSerializer;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class PAnimation {
     @JsonDeserialize(using = PFileIdDeserializer.class)
     public PJoint joint = null;
 
-    @JsonSerialize(contentUsing = Matrix4FSerializer.class)
-    @JsonDeserialize(contentUsing = Matrix4FDeserializer.class)
-    public List<Matrix4f> matrixList = new ArrayList<>();
+    @JsonSerialize(contentUsing = PTransformSerializer.class)
+    @JsonDeserialize(contentUsing = PTransformDeserializer.class)
+    public List<PTransform> transformList = new ArrayList<>();
 }

@@ -8,15 +8,17 @@ import me.asakura_kukii.lib.jackson.databind.module.SimpleModule;
 import me.asakura_kukii.siegecore.io.PFile;
 import me.asakura_kukii.siegemob.util.Matrix4FDeserializer;
 import me.asakura_kukii.siegemob.util.Matrix4FSerializer;
+import me.asakura_kukii.siegemob.util.PTransformDeserializer;
+import me.asakura_kukii.siegemob.util.PTransformSerializer;
 import org.joml.Matrix4f;
 
 public class PJoint extends PFile {
 
     public PJoint() {}
 
-    @JsonSerialize(using = Matrix4FSerializer.class)
-    @JsonDeserialize(using = Matrix4FDeserializer.class)
-    public Matrix4f matrix = new Matrix4f();
+    @JsonSerialize(using = PTransformSerializer.class)
+    @JsonDeserialize(using = PTransformDeserializer.class)
+    public PTransform transform = new PTransform();
 
     @Override
     public void finalizeDeserialization() {}

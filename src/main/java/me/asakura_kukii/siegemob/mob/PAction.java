@@ -7,6 +7,8 @@ import me.asakura_kukii.lib.jackson.databind.annotation.JsonSerialize;
 import me.asakura_kukii.siegecore.io.PFile;
 import me.asakura_kukii.siegemob.util.Matrix4FDeserializer;
 import me.asakura_kukii.siegemob.util.Matrix4FSerializer;
+import me.asakura_kukii.siegemob.util.PTransformDeserializer;
+import me.asakura_kukii.siegemob.util.PTransformSerializer;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
@@ -31,9 +33,9 @@ public class PAction extends PFile {
     public float extendTarget = 0;
     public float extendDistanceMaxPerFrame = 2;
 
-    @JsonSerialize(contentUsing = Matrix4FSerializer.class)
-    @JsonDeserialize(contentUsing = Matrix4FDeserializer.class)
-    public List<Matrix4f> biasList = new ArrayList<>();
+    @JsonSerialize(contentUsing = PTransformSerializer.class)
+    @JsonDeserialize(contentUsing = PTransformDeserializer.class)
+    public List<PTransform> biasList = new ArrayList<>();
 
     public List<PAnimation> animationList = new ArrayList<>();
 

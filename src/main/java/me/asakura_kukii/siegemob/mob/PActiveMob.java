@@ -7,7 +7,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
-import org.joml.Matrix4f;
 
 import java.util.*;
 
@@ -18,7 +17,7 @@ public class PActiveMob {
     public UUID uuid;
     public Location anchor;
     public HashMap<PJoint, ItemDisplay> entityMap;
-    public HashMap<PJoint, List<Matrix4f>> matrixListMap;
+    public HashMap<PJoint, List<PTransform>> transformListMap;
     public PAction action;
     public int actionTick = 0;
 
@@ -27,18 +26,18 @@ public class PActiveMob {
         this.uuid = UUID.randomUUID();
         this.anchor = l;
         this.entityMap = new HashMap<>();
-        this.matrixListMap = new HashMap<>();
+        this.transformListMap = new HashMap<>();
         this.action = null;
         this.actionTick = 0;
     }
 
     public void spawn() {
-        for (PJoint pJ : this.mob.jointList) {
+        for (PJoint pJ : this.mob.jointMap.keySet()) {
             if (entityMap.containsKey(pJ)) continue;
             Entity e = Objects.requireNonNull(anchor.getWorld()).spawnEntity(anchor, EntityType.ITEM_DISPLAY);
             ItemDisplay iD = (ItemDisplay) e;
             iD.setItemStack(new ItemStack(Material.COOKIE));
-            iD.setTransformationMatrix(pJ.matrix);
+            iD.setTransformation(pJ.transform.getTransform());
             iD.setInterpolationDuration(1);
             iD.setInterpolationDelay(0);
             entityMap.put(pJ, iD);
@@ -48,20 +47,19 @@ public class PActiveMob {
 
     public void update() {
         if (this.action == null) return;
-        for (PJoint pJ : this.mob.jointList) {
+        for (PJoint pJ : this.mob.jointMap.keySet()) {
             if (!entityMap.containsKey(pJ)) continue;
-            if (!matrixListMap.containsKey(pJ)) continue;
-            if (actionTick > matrixListMap.get(pJ).size() - 1) {
-                matrixListMap.remove(pJ);
+            if (!transformListMap.containsKey(pJ)) continue;
+            if (actionTick > transformListMap.get(pJ).size() - 1) {
+                transformListMap.remove(pJ);
                 continue;
             }
-            Matrix4f matrix = matrixListMap.get(pJ).get(actionTick);
             ItemDisplay iD = entityMap.get(pJ);
-            iD.setTransformationMatrix(matrix);
+            iD.setTransformation(transformListMap.get(pJ).get(actionTick).getTransform());
             iD.setInterpolationDuration(1);
             iD.setInterpolationDelay(0);
         }
-        if (matrixListMap.isEmpty()) {
+        if (transformListMap.isEmpty()) {
             this.action = null;
             this.actionTick = 0;
             return;
@@ -73,10 +71,10 @@ public class PActiveMob {
     public void action(PAction pA) {
         this.action = pA;
         this.actionTick = 0;
-        this.matrixListMap.clear();
+        this.transformListMap.clear();
         for (PAnimation pAnimation : this.action.animationList) {
-            if (!this.mob.jointList.contains(pAnimation.joint)) continue;
-            this.matrixListMap.put(pAnimation.joint, pAnimation.matrixList);
+            if (!this.mob.jointMap.containsKey(pAnimation.joint)) continue;
+            this.transformListMap.put(pAnimation.joint, pAnimation.transformList);
         }
     }
 }

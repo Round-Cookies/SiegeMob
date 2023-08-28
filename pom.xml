@@ -27,11 +27,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>SiegeCore-0.0.1</groupId>
-            <artifactId>SiegeCore-0.0.1</artifactId>
+            <groupId>SiegeCore-0.0.3</groupId>
+            <artifactId>SiegeCore-0.0.3</artifactId>
             <scope>system</scope>
-            <version>0.0.1</version>
-            <systemPath>${basedir}\src\lib\SiegeCore-0.0.1.jar</systemPath>
+            <version>0.0.3</version>
+            <systemPath>${basedir}\src\lib\SiegeCore-0.0.3.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>

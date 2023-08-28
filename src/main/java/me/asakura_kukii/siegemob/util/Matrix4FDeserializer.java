@@ -15,7 +15,7 @@ public class Matrix4FDeserializer extends JsonDeserializer<Matrix4f> {
     public Matrix4f deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
 
         if (jsonParser.currentToken() != JsonToken.START_ARRAY) {
-            throw new IOException("Could not interpret PTransform " + jsonParser.getCurrentLocation().toString());
+            throw new IOException("Could not interpret Matrix4F " + jsonParser.getCurrentLocation().toString());
         }
         List<Float> vector = new ArrayList<>();
         while (jsonParser.nextToken() != JsonToken.END_ARRAY) {
@@ -29,7 +29,7 @@ public class Matrix4FDeserializer extends JsonDeserializer<Matrix4f> {
                     vector.get(3), vector.get(7), vector.get(11), vector.get(15)
             );
         } else {
-            throw new IOException("Could not interpret PTransform " + jsonParser.getCurrentLocation().toString());
+            throw new IOException("Could not interpret Matrix4F " + jsonParser.getCurrentLocation().toString());
         }
     }
 }
