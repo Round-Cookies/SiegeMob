@@ -20,7 +20,7 @@ public class PMob extends PFile {
 
     public PMob() {}
 
-    @JsonSerialize(keyUsing = PFileIdSerializer.class, contentUsing = PFileIdSerializer.class)
+    @JsonSerialize(keyUsing = PFileIdKeySerializer.class, contentUsing = PFileIdSerializer.class)
     @JsonDeserialize(keyUsing = PFileIdKeyDeserializer.class, contentUsing = PFileIdDeserializer.class)
     public HashMap<PJoint, PDeco> jointMap = new HashMap<>();
 
